@@ -24,7 +24,7 @@ spec:
           description: The ID of Cloudify blueprint to create deployment from
         deploymentInputs:
           title: Deployment Inputs
-          type: array
+          type: object
           description: The inputs to pass to Cloudify blueprint when creating the deployment
   steps:
     - id: create-cloudify-deployment
