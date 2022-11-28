@@ -1,0 +1,36 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: create-deployment-demo
+  title: Create Deployment demo
+  description: scaffolder action to create cloudify deployment
+spec:
+  owner: my-team
+  type: service
+
+  parameters:
+    - title: Provide some simple information
+      required:
+        - deploymentName
+        - blueprintID
+      properties:
+        deploymentName:
+          title: Deployment Name
+          type: string
+          description: The name of Cloudify deployment
+        blueprintID:
+          title: Blueprint ID
+          type: string
+          description: The ID of Cloudify blueprint to create deployment from
+        deploymentInputs:
+          title: Deployment Inputs
+          type: array
+          description: The inputs to pass to Cloudify blueprint when creating the deployment
+  steps:
+    - id: create-cloudify-deployment
+      name: Create Cloudify Deployment
+      action: cloudify:deployment:create-deployment
+      input:
+        deploymentName: ${{ parameters.deploymentName }}
+        blueprintID: ${{ parameters.blueprintID }}
+        deploymentInputs: ${{ parameters.deploymentInputs }}
