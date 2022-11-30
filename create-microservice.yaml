@@ -1,0 +1,56 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: create-microservice-demo
+  title: Create Microservice demo
+  description: scaffolder action to create micro-service
+spec:
+  owner: my-team
+  type: service
+
+  parameters:
+    - title: Provide some simple information
+      required:
+        - microserviceName
+      properties:
+        microserviceName:
+          title: Microservice Name
+          type: string
+          description: The name of micorservice
+    - title: Choose a location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+  steps:
+    - id: fetch-template
+      name: Fetch microservice template
+      action: fetch:template
+      input:
+        url: https://github.com/ahmadiesa-abu/nodejs-template.git
+        targetPath: './repo-contents'
+
+    - id: publish
+      name: Fork microservice repo
+      action: publish:github
+      input:
+        allowedHosts: ["github.com"]
+        description: This is ${{ parameters.microserviceName }} code repo
+        repoUrl: ${{ parameters.repoUrl }}
+        repoVisibility: private
+        defaultBranch: master
+        sourcePath: ./repo-contents
+
+    # - id: create-cloudify-deployment
+    #   name: Create Cloudify Deployment
+    #   action: cloudify:deployment:create-deployment
+    #   input:
+    #     deploymentName: ${{ parameters.deploymentName }}
+    #     blueprintID: ${{ parameters.blueprintID }}
+    #     deploymentInputs:
