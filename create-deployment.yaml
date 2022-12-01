@@ -31,6 +31,18 @@ spec:
           title: Deployment Inputs
           type: object
           description: The inputs to pass to Cloudify blueprint when creating the deployment
+          properties:
+            test_multiple_choice:
+              title: string choice of colors
+              type: string
+              enum:
+                - White
+                - Black
+                - Yellow
+                - Green
+                - Blue
+                - Red
+                - Gray
   steps:
     - id: create-cloudify-deployment
       name: Create Cloudify Deployment
