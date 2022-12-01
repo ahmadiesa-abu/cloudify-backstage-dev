@@ -9,14 +9,22 @@ spec:
   type: service
 
   parameters:
-    - title: Provide some simple information
+    - title: Pick a template
       required:
-        - microserviceName
+        - templateRepoUrl
       properties:
-        microserviceName:
-          title: Microservice Name
+        templateRepoUrl:
+          title: Template Location
           type: string
-          description: The name of micorservice
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+            allowedOwners:
+              - ahmadiesa-abu
+            allowedRepos:
+              - nodejs-template
+              - python-template
     - title: Choose a location
       required:
         - repoUrl
@@ -33,7 +41,7 @@ spec:
       name: Fetch microservice template
       action: fetch:template
       input:
-        url: https://github.com/ahmadiesa-abu/nodejs-template.git
+        url: ${{ parameters.templateRepoUrl }}
         targetPath: './repo-contents'
 
     - id: publish

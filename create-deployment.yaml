@@ -22,6 +22,11 @@ spec:
           title: Blueprint ID
           type: string
           description: The ID of Cloudify blueprint to create deployment from
+          enum:
+            - test-input-types
+            - Backstage-AWS-CFY
+            - EC2-VPC
+            - Istio-AWS-CFY
         deploymentInputs:
           title: Deployment Inputs
           type: object
