@@ -37,8 +37,8 @@ spec:
               title: ec2 instance type
               type: string
               enum:
-                - t2.nano
                 - t2.micro
+                - t2.small
                 - t2.medium
                 - t2.large
 #             test_multiple_choice:
